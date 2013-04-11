@@ -106,21 +106,28 @@ class GovSDK {
 			return $data;			
 		} elseif ($post['GovAPI'] == 2) {
 			$post = $_POST;
+						
+			$validatexml = "http://".NOAA_BASE_URL."/cdo-services/services/datasets?token=".NOAA_KEY."";
 			
-			$api = simplexml_load_file("http://".NOAA_BASE_URL."/cdo-services/services/datasets?token=".NOAA_KEY."");
-			
-			$data = "<h2>NOAA Climate Data Online</h2>";
-			$data .= "<table id=\"tablesorter\" class=\"tablesorter\" border=\"0\" cellpadding=\"0\" cellspacing=\"1\">";
-			$data .= 	"<thead><th>ID</th><th>Name</th><th>Description</th><th>Min Date</th><th>Max Date</th></thead>";
-			$data .= "<tbody>";
+			//Validate and sanitize XML data being received...
+			if (preg_match('/\A(?!XML)[a-z][\w0-9-]*/i', $validatexml)) {
+				$api = simplexml_load_file("$validatexml");
 				
+				$data = "<h2>NOAA Climate Data Online</h2>";
+				$data .= "<table id=\"tablesorter\" class=\"tablesorter\" border=\"0\" cellpadding=\"0\" cellspacing=\"1\">";
+				$data .= 	"<thead><th>ID</th><th>Name</th><th>Description</th><th>Min Date</th><th>Max Date</th></thead>";
+				$data .= "<tbody>";				
 			
 				$data .= var_dump($api);
 			
-			$data .= "</tbody>";
-			$data .= "</table>";
+				$data .= "</tbody>";
+				$data .= "</table>";
 		
-			return $data;			
+				return $data;
+			} else {
+				$data = "No valid XML URL found or XML data does not exist...";
+				return $data;
+			}			
 		}
 	}
 }
