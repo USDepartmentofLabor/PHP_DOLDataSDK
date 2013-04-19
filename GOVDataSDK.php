@@ -78,6 +78,7 @@ class GOVDataRequest
 				$results = json_decode($results);
 				if ($code == '200') {
 					$results = $results->d;
+					//uncomment (var_dump($results); exit;) to parse raw data for verification...
 					//var_dump($results); exit;
 					if ($results instanceof stdClass) {
 						if(isset($results->results))
@@ -92,8 +93,6 @@ class GOVDataRequest
 				return $results;
 		} elseif ($this->context->isValid() == "http://business.usa.gov") {
 			$url = simplexml_load_file("{$this->context->apiHost}/$method?");
-			
-			//print_r($url); exit;
 			$query = Array();
 			foreach ($arguments as $key => $value) {
 				if (array_key_exists($key, self::$validArguments)) {
@@ -103,11 +102,13 @@ class GOVDataRequest
 				}
 			}
 			$query = implode('&', $query);
+			// Initiate variable $i to set returned data...
 			$i = 0;
 			foreach($url->children() as $node) if ($i++ < 10) {
 				$results[] = $node; 
 			}				
-				//var_dump($results); exit;
+			//uncomment (var_dump($results); exit;) to parse raw data for verification...
+			//var_dump($results); exit;
 			return $results;
 		} else {
 			return NULL;
