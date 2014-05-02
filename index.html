@@ -1,0 +1,323 @@
+﻿<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<HTML> 
+<HEAD> 
+<TITLE>U.S. Department of Labor -- The Department of Labor Developer Community</TITLE>
+<META NAME="keywords" CONTENT="Department of Labor, DOL, Secretary of Labor" />
+<!-- begin dol-styles.shtm -->
+<link rel="shortcut icon" href="http://www.dol.gov/favicon.ico" type="image/x-icon">
+<link rel="icon" href="http://www.dol.gov/favicon.ico" type="image/x-icon">
+<link href="http://www.dol.gov/dol.css" rel="stylesheet" type="text/css">
+<link rel="stylesheet" href="api.css" TYPE="text/css" />
+<link href="http://webapps.dol.gov/FSPublic/Content/W_Helpful.css" rel="stylesheet" type="text/css">
+<style type="text/css">
+<!--
+caption {text-align:left; font-size:80%}
+table{margin-left:12px;}
+
+
+-->
+</style>
+
+<!-- end dol-styles.shtm -->
+		<script src="//ajax.googleapis.com/ajax/libs/jquery/1.8.0/jquery.min.js"></script>
+<script type="text/javascript" src="prettify.js"></script>
+<script language="JavaScript" type="text/javascript">
+
+	jQuery(document).ready(function(){
+
+		// This line of code makes code pretty to look at and understand.
+		window.prettyPrint && prettyPrint()
+	
+	});
+	
+
+
+</script>
+<!--start include header-dest-redesign3.shtm -->
+<script src="http://webapps.dol.gov/FSPublic/Scripts/W_Helpful.js" type="text/javascript"></script>
+<script type="text/javascript">
+		$(document).ready(function() {
+			W_Helpful.init('#fbcontent');
+		});
+</script> 
+</HEAD> 
+<BODY> 
+<a href="https://github.com/USDepartmentofLabor/PHP_DOLDataSDK"><img style="position: absolute; top: 0; right: 0; border: 0;" src="https://s3.amazonaws.com/github/ribbons/forkme_right_gray_6d6d6d.png" alt="Fork me on GitHub"></a>
+<div id="Main">
+	<!--Header Start -->
+    <a href="#pagecontent" class="skipster">Skip to page content</a>
+
+<div id="Header">
+    <div id="Banner">
+        <p class="banner"><a href="http://www.dol.gov">United States Department of Labor</a></p>
+    </div>
+		<div id="RightColumn"><table><tr><td valign="bottom">
+		
+			</td><td>
+            
+  
+ 
+ 
+ 
+            
+            
+          </td></tr>
+		  <tr><td colspan="2">
+			
+
+			</td></tr></table>
+		</div>
+	</div>
+    
+	<!--Header End -->
+
+	<!--Body Start -->
+	<div id="Body">
+		<div id="UtilityBar" class="tools">
+			<div class="utilitybarleft"><div id="agencyname">&nbsp;</div></div>
+
+			<!-- This is where the E-mail This page use to be -->
+			<div class="utilitybarright">
+				<div id="fbcontent" style="float:right"></div>			
+			</div>
+		</div>
+		<div class="crumb-links"><!-- begin crumb-nonav-auto.shtm -->
+<TABLE BORDER="0" CELLSPACING="0" CELLPADDING="0">
+  <TR>
+    <TD VALIGN="middle" ALIGN="LEFT" height="7" style="padding-left:2px"><span class="crumb-links">
+      <a href="http://www.dol.gov">DOL Home</a> &gt; <a href="http://www.dol.gov/open/">OPEN</a> &gt; <a href="http://developer.dol.gov">Developer Community</a> &gt; PHP Federal Data SDK
+      </span> </td>
+
+  </tr>
+</table>
+<!-- end crumb-nonav-auto.shtm --></div>
+		<div id="content" >
+			<div id="pagecontent" style="width:768px;font-size:0;line-height:0;"></div>
+
+<!--end include header-dest-redesign3.shtm -->
+<!-- START CONTENT HERE  *************************************************** -->
+                <h1 class="title" id="page-title">PHP Federal Data SDK</h1>
+
+<h2>Adding the SDK to Your Project</h2>
+<h3><a name="add" id="add"></a>Add SDK files to your project</h3>
+<p><a href="https://github.com/USDepartmentofLabor/PHP_DOLDataSDK/archive/master.zip">Extract the zipped SDK folder</a> or grab the <a href="https://github.com/USDepartmentofLabor/PHP_DOLDataSDK">Git repository</a>.<br /><br />
+    Copy the GOVDataSDK.php file into your project.</p>
+<h3><a name="req" id="req"></a>Requirements</h3>
+<p>This SDK makes use of PHP's cURL functions.</p>
+<h2>Using the SDK</h2>
+<h3><a name="ref" id="ref"></a>Reference the GOV Data API in your source file</h3>
+<p>In the source files that will make GOV Data requests add the  following include or require:</p>
+<pre class="prettyprint" style="width:400px">include "GOVDataSDK.php";</pre><p><br /></p>
+<h3><a name="api" id="api"></a>Making API Calls</h3>
+<p>The <strong>GOVDataRequest</strong> class is used to make API calls. It requires a context object to be passed to  its constructor in order to get the API key and URL information needed for the  requests. The <strong>GOVDataContext</strong> is the  context class used to hold this information.</p>
+<p>You can also pass arguments to the API call by adding them  to an <strong>Array</strong> as key/value pairs and passing it as the second argument of  the <strong>callAPI()</strong> method. Valid  arguments include <em>top</em>, <em>select</em>, <em>filter</em>, <em>orderby</em>, and <em>skip. </em>They are defined later in this  document.</p>
+<p>In order to make requests:</p>
+<ul><li>Instantiate a <strong>GOVDataContext</strong> object</li>
+<li>Instantiate a <strong>GOVDataRequest</strong> object and initialize it with the context </li>
+<li>Create an <strong>Array</strong> and store all the API arguments as key/value pairs.</li>
+<li>Call the <strong>callAPI()</strong> method,  passing the API name and the arguments (leave off the arguments if there are no arguments)</li>
+</ul><p><u>Sample code to make requests for standard GOV API datasets:</u></p>
+<pre class="prettyprint">&lt;?php
+include "GOVDataSDK.php";
+ 
+//Instantiate  GOV Data context object
+//This  object stores the API information required to make requests
+if ($this-&gt;context-&gt;isValid() == "http://api.dol.gov") {
+	$context = new GOVDataContext("http://api.dol.gov", "your-api-key", "your-shared-secret");
+} 
+//This  object stores the API information and does not require an API key or secret
+elseif ($this-&gt;context-&gt;isValid() == "http://business.usa.gov") {
+	$context = new GOVDataContext("http://business.usa.gov");
+}
+ 
+//Instantiate  new request object. Pass the context that contains all the API key info
+$request = new GOVDataRequest $context;
+ 
+//API  you want to fetch data from
+$method = "FORMS/Agencies";
+//Gov API method added e.g,: Business USA Article for domain: {business.usa.gov}
+$method = "api/article/xml";
+ 
+//Build Array arguments
+//Example to retrieve top 10 records and just get one field. 
+$arguments = Array('top' =&gt; '10', 'select' =&gt; 'AgencyName');
+$arguments = Array('top' =&gt; '10', 'select' =&gt; 'Title');
+ 
+//Make API call
+$results = $request-&gt;callAPI($method, $arguments);
+if (is_string($results)) {
+	//handle error
+} else {
+	//handle success
+}
+?&gt;</pre><p>
+<a name="service" id="service"></a></p>
+<p><u>Sample code to make requests for  GOV Service Operation (e.g  Summer Jobs Plus) :</u></p>
+<pre class="prettyprint">&lt;?php
+include "GOVDataSDK.php";
+ 
+//Instantiate  GOV Data context object
+//This  object stores the API information required to make requests
+$context = new GOVDataContext("http://api.dol.gov");
+ 
+//Instantiate  new request object. Pass the context that contains all the API key info
+$request = new GOVDataRequest $context;
+ 
+//API  you want to fetch data from
+$method = "SummerJobs/getJobsListing";
+ 
+//Build Array arguments
+//Example to retrieve top 10 records and just get one field. 
+$arguments =  Array('format' =&gt; '\'json\'', 
+					'query' =&gt; '\'Farm\'',
+					'region' =&gt; '',
+					'locality' =&gt; '', 
+					'skipCount' =&gt; '1');
+ 
+ 
+//Make API call
+$results = $request-&gt;callAPI($method, $arguments);
+if (is_string($results)) {
+	//handle error
+} else {
+	//handle success
+}
+?&gt;</pre><p></p>
+<h3><a name="Federal" id="Federal"></a>Using This SDK With APIs From Other Federal Agencies</h3>
+<p>The example above uses DOL's API.  Some federal APIs' URLs are structured differently.  For example, let's look at <a href="http://business.usa.gov/api/article/xml">http://business.usa.gov/api/article/xml</a></p>
+<ul><li>API_KEY = ""</li>
+<li>API_SECRET = ""</li>
+<li>API_Host = "<a href="http://business.usa.gov">http://business.usa.gov</a>"</li>
+<li>API_URL = "/api/article/xml"</li>
+<li>method = "find"</li>
+</ul><p>Let's look at the Census Bureau.  For example, <a href="http://api.census.gov/data/2010/acs5?key=">http://api.census.gov/data/2010/acs5?key=</a>{your key}&amp;get=B02001_001E,NAME&amp;for=state:06,36</p>
+<ul><li>API_KEY = "YOUR_API_KEY"</li>
+<li>API_SECRET = ""</li>
+<li>API_Host = "<a href="http://api.census.gov">http://api.census.gov</a>"</li>
+<li>API_URL = "/data/2010"</li>
+<li>method = "acs5"</li>
+</ul><p><a name="govservice" id="govservice"></a></p>
+<p><u>Sample code to make requests for  GOV Service Operation (e.g  Business USA Article) :</u></p>
+<pre class="prettyprint">&lt;?php
+include "GOVDataSDK.php";
+ 
+//Instantiate  GOV Data context object
+//This  object stores the API information required to make requests
+$context = new GOVDataContext("http://business.usa.gov");
+ 
+//Instantiate  new request object. Pass the context that contains all the API key info
+$request = new GOVDataRequest $context;
+ 
+//API  you want to fetch data from
+$method = "api/article/xml";
+ 
+//Build Array arguments
+//Example to retrieve top 10 records and just get one field. 
+$arguments =  Array('format' =&gt; '\'json\'', 
+					'query' =&gt; '\'Title\'',
+					'region' =&gt; '',
+					'locality' =&gt; '', 
+					'skipCount' =&gt; '1');
+ 
+ 
+//Make API call
+$results = $request-&gt;callAPI($method, $arguments);
+if (is_string($results)) {
+	//handle error
+} else {
+	//handle success
+}
+?&gt;</pre><p>The <strong>callAPI()</strong> triggers the SDK to process the request,  add authorization headers and returns either an <strong>Array</strong> with the results or a <strong>String</strong> with an error message.<br /></p>
+<p>  <a name="method" id="method"></a></p>
+<h3>API Method Arguments</h3>
+<p> <a name="API" id="API"></a></p>
+<h3>Standard GOV API datasets</h3>
+<h4><a name="top" id="top"></a>top</h4>
+<p>The top argument is used to specify the number of records to  be returned.</p>
+<p>Example:</p>
+<pre class="prettyprint">$args = Array('top' =&gt; '2');</pre><p></p>
+<h4><a name="skip" id="skip">skip</a></h4>
+<p>The skip argument specifies that you want the service to  skip a specified number of results. This argument in combination with top,  serve as the basis to implement pagination.</p>
+<p>Example:</p>
+<pre class="prettyprint">//Return records 21-30
+$args = Array('top' =&gt; '10', 'skip' =&gt; '20');</pre><p>	  </p>
+<h4><a name="select" id="select">select</a></h4>
+<p>The select argument allows you to specify the exact columns  that you want the API to return. Separate them with commas if there is more  than one.</p>
+<p>In order to save bandwidth, it is always a good idea to add  a select clause to most requests and retrieve the columns needed for a specific  function. Some datasets can contain dozens of columns and the performance of  your app can be impacted if you always return all of the columns. This is even  more important in mobile applications because of device memory limitations,  possible slow network speeds, and data usage caps imposed by carriers.</p>
+<p>Example:</p>
+<pre class="prettyprint">//Select the Article Node ID and other columns to display
+$args = Array('select' =&gt; 'node,title,learn_more_url,publics_date,detailed_date,topic');</pre><p></p>
+<h4><a name="order" id="order">orderby</a></h4>
+<p>Use the orderby argument to sort the data by one or more  columns. Separate them with commas if there is more than one.</p>
+<pre class="prettyprint">//Order by the Title column
+$args = Array('orderby' =&gt; 'title');</pre><p></p>
+<h4><a name="filter" id="filter">filter</a></h4>
+<p>The filter argument is used to add filters to the API query.  For example, you can filter results where a specific column is equal to a  string provided. </p>
+<p>The API recognizes the following comparison keywords:<br /><br /><strong>eq</strong> - Equal to<br /><br /><strong>ne</strong> - Not Equal to<br /><br /><strong>gt</strong> - Greater than<br /><br /><strong>lt</strong> - Less than<br /><br /><strong>ge</strong> - Greater than  or equal to<br /><br /><strong>le</strong> - Less than or  equal to</p>
+<p>  <br clear="all" /></p>
+<h3>GOV Service Operation for  Summer Jobs Plus</h3>
+<p>To use the Service Operations API the Operation name and parameters need to be supplied using the data services format. Each String typed parameter must be surrounded in quotes in order to work correctly.  These quotes are then Url encoded and passed to the Service Operation.<br /></p>
+<h4><a name="format" id="format">format</a></h4>
+<p>The format argument allows you to specify the format that the results string will be returned. If format argument is not passed with request then result will be returned in json format by default.<br />
+	Following are the supported format of results string.</p>
+<p>
+<label><a name="formatcodes" id="formatcodes"></a>Format Codes:</label><br /><br />
+json ( Default )<br /><br />
+xml<br /><br />
+atom<br /></p>
+<p>Example:</p>
+<pre class="prettyprint">$arguments =  Array('format' =&gt; '\'json\'');</pre><p>  <br clear="all" /></p>
+<h4><a name="query" id="query">query</a></h4>
+<p>The query argument will be used to find matching job listings. This is required if region or locality are not provided.</p>
+<p>Example:</p>
+<pre class="prettyprint">$arguments =  Array('query' =&gt; '\'Farm\'');</pre><p>  <br clear="all" /></p>
+<h4><a name="region" id="region">region</a></h4>
+<p>The region argument will be used to filter jobs listings by the state name or abbreviation. This is required if query or locality are not provided.</p>
+<p>Example:</p>
+<pre class="prettyprint">$arguments =  Array('region' =&gt; '\'VA\'');</pre><p>  <br clear="all" /></p>
+<h4><a name="locality" id="locality">locality</a></h4>
+<p>The region argument will be used to filter jobs listings by The city name. This is required if query or region  are not provided.</p>
+<p>Example:</p>
+<pre class="prettyprint">$arguments =  Array('locality' =&gt; '\'Alexandria\'');</pre><p>  <br clear="all" /></p>
+<h4><a name="skipCount" id="skipCount">skipCount</a></h4>
+<p>The skipCount argument will be used to specify the number of records to skip ahead from the first record.  Valid range of 1-99 and it required.</p>
+<p>Example:</p>
+<pre class="prettyprint">$arguments =  Array('skipCount' =&gt; '1');</pre><p>  <br clear="all" /></p>
+
+<!-- END CONTENT HERE  *************************************************** -->
+<!---original location of this file: "/includes/" -->
+
+</div><!--Body End -->
+
+ </div>
+
+	<!--Footer Start -->
+	<div id="Footer">
+		<div id="FooterMenu">
+			<div id="FooterMenuContainer">
+				<a href="http://www.dol.gov/dol/foia/main.htm">Freedom of Information Act</a>&nbsp;|&nbsp;
+
+				<a href="http://www.dol.gov/dol/privacynotice.htm">Privacy & Security Statement</a>&nbsp;|&nbsp;
+				<a href="http://www.dol.gov/dol/disclaim.htm">Disclaimers</a>&nbsp;|&nbsp;
+				<a href="http://webapps.dol.gov/feedback/FeedbackSurvey.aspx">Customer Survey</a>&nbsp;|&nbsp;
+				<a href="http://www.dol.gov/dol/aboutdol/website-policies.htm">Important Web Site Notices</a>&nbsp;|&nbsp;
+
+                <a href="http://www.dol.gov/dol/aboutdol/plug-ins.htm">Plug-ins Used by DOL</a>
+			</div>
+		</div>
+	
+		<div id="FooterContact">
+			<div id="FooterContactContainer">
+				U.S. Department of Labor&nbsp;|&nbsp;Frances Perkins Building, 200 Constitution Ave., NW, Washington, DC 20210<br>
+
+				<a href="http://www.dol.gov" style=" text-decoration: underline; ">www.dol.gov</a>&nbsp;|&nbsp;Telephone: 1-866-4-USA-DOL (1-866-487-2365)&nbsp;|&nbsp;TTY: 1-877-889-5627&nbsp;|&nbsp;<u><a href="http://www.dol.gov/dol/contact/index.htm">Contact Us</a></u>
+			</div>
+		</div>
+	</div>
+	<!--Footer End -->
+
+
+</div><!--Main End -->
+
+  </BODY>
+</HTML>
