@@ -43,10 +43,10 @@ $arguments = NULL;
 	// For APIv2 $method is always set to 'get' 
 	$method = 'get';
 	
-	// In the arguments array, table_alias must be set. lease visit http://developer.dol.gov/dataset/ for additional help
+	// In the arguments array, table_alias MUST be set. Please visit http://developer.dol.gov/dataset/ for additional help
 	$arguments =  Array('format' => 'json',
 						'orderby' => 'asc',
-						'table_alias' => 'violation');
+						'table_alias' => '');
 }else{
 // No apiURL error goes here.
 }
