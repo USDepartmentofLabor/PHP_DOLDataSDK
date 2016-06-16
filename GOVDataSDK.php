@@ -3,10 +3,16 @@ date_default_timezone_set('UTC');
 
 // This class handles the storage of the host, API key, and Shared Secret for your GOVDataRequest
 // objects.  A GOVDataContext is valid if it has values for host, key and secret.
+
+/**
+  * This class handles the storage of the host, API key, and Shared Secret for your GOVDataRequest
+  * objects.  A GOVDataContext is valid if it has values for host, key and secret.
+  */
+  
 class GOVDataContext
 {
 	public $apiHost = '';
-	public $apiURL = 'V1';
+	public $apiURL = ''; //V1 OR V2 if using Quarry API
 	public $apiKey;
 	public $sharedSecret;
 	public $apiUser;
@@ -27,7 +33,7 @@ class GOVDataContext
 		} elseif ($this->apiHost == "http://business.usa.gov") {
 			$valid = $this->apiHost;
 			return $valid;
-		}elseif ($this->apiHost == "http://quarry.dol.gov"){
+		}elseif ($this->apiHost == "http://data.dol.gov"){
 			$valid = $this->apiHost;
 			$this->apiURL = 'V2';
 			return $valid;
@@ -35,7 +41,7 @@ class GOVDataContext
 	}
 
 	function updateContext(){
-		if ($this->apiHost == "http://quarry.dol.gov"){
+		if ($this->apiHost == "http://data.dol.gov"){
 			$this->apiURL = 'V2';
 		}
 	}
@@ -44,10 +50,12 @@ class GOVDataContext
 			return $this->apiURL;
 	}
 }
-
-// This class handles requesting data from the API.  All GOVDataRequests must be initialized with a
-// GOVDataContext providing a host, API key, and SharedSecet.
-// The callAPI method is responsible for sending the request.
+/**
+  * This class handles requesting data from the API.  All GOVDataRequests must be initialized with a
+  * GOVDataContext providing a host, API key, and SharedSecret.
+  * The callAPI method is responsible for sending the request.
+  */
+  
 class GOVDataRequest
 {
 	static private $validArguments = Array(
@@ -64,12 +72,14 @@ class GOVDataRequest
 		$this->context = $context;
 	}
 
-	// This method is responsible for constructing and submitting the request.
-	// It returns a string if an error occured while submitting the request.
-	// Otherwise, it returns an Array of instances of stdClass, each instance corresponsing to
-	// a row of data from the dataset.  Each row has properties representing the datasets columns.
+/**
+	* This method is responsible for constructing and submitting the request.
+	* It returns a string if an error occured while submitting the request.
+	* Otherwise, it returns an Array of instances of stdClass, each instance corresponsing to
+	* a row of data from the dataset.  Each row has properties representing the datasets columns.
+	*/
+	
 	function callAPI($method, $arguments = Array()) {
-
 
 		if ($this->context->isValid() == "http://api.dol.gov") {
 			$url = "{$this->context->apiHost}/{$this->context->apiURL}/$method?";
