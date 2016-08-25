@@ -27,7 +27,7 @@ class GOVDataContext
 		} elseif ($this->apiHost == "http://business.usa.gov") {
 			$valid = $this->apiHost;
 			return $valid;
-		}elseif ($this->apiHost == "http://quarry.dol.gov"){
+		}elseif ($this->apiHost == "https://quarry.dol.gov"){
 			$valid = $this->apiHost;
 			$this->apiURL = 'V2';
 			return $valid;
@@ -35,7 +35,7 @@ class GOVDataContext
 	}
 
 	function updateContext(){
-		if ($this->apiHost == "http://quarry.dol.gov"){
+		if ($this->apiHost == "https://quarry.dol.gov"){
 			$this->apiURL = 'V2';
 		}
 	}

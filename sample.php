@@ -1,7 +1,5 @@
 <?php
-//include "GOVDataSDK.php";
-include "GOVDataContext.php";
-include "GOVDataRequest.php";
+include "GOVDataSDK.php";
 
 //Instantiate  GOV Data context object
 //This  object stores the API information required to make requests
@@ -10,7 +8,7 @@ include "GOVDataRequest.php";
 $context = new GOVDataContext('http://api.dol.gov','ADD_YOUR_API_KEY_HERE',null);
 
 //APIv2-Quarry
-//$context = new GOVDataContext('http://quarry.dol.gov','ADD_YOUR_API_KEY_HERE',null);
+//$context = new GOVDataContext('https://quarry.dol.gov','ADD_YOUR_API_KEY_HERE',null);
 
 //print_r($context);exit;
 
@@ -37,9 +35,8 @@ $arguments = NULL;
 	//Quarry build array example
 	$method = 'get';
 	$arguments =  Array('format' => 'json',
-						'orderby' => 'asc',
-						'columns' => '{ReportID:CoName:OrgType}',
-						'table_alias' => 'TABLE_ALIAS');
+			    'limit' => 10,
+			    'table_alias' => '');
 
 }else{
 // No method error.
@@ -49,11 +46,10 @@ $arguments = NULL;
 $results = $request->callAPI($method, $arguments);
 if (is_string($results)) {
 	//handle error
-		print_r($results);
-
+	echo $results;
 } else {
-		//handle success
-		print_r($results);
+	//handle success
+	print_r($results);
 }
 ?>
 
