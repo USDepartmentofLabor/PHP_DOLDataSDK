@@ -21,19 +21,19 @@ class GOVDataContext
 	}
 
 	function isValid() {
-		if ($this->apiHost == "http://api.dol.gov") {
+	  switch($this->apiHost){
+		case "http://api.dol.gov"):
 			$valid = $this->apiHost;
 			return $valid;
-		} elseif ($this->apiHost == "http://business.usa.gov") {
+		case "http://business.usa.gov":
 			$valid = $this->apiHost;
 			return $valid;
-		}elseif ($this->apiHost == "https://quarry.dol.gov"){
+		case "https://quarry.dol.gov":
 			$valid = $this->apiHost;
 			$this->apiURL = 'V2';
 			return $valid;
-		}
-	}
-
+	 }
+    }
 	function updateContext(){
 		if ($this->apiHost == "https://quarry.dol.gov"){
 			$this->apiURL = 'V2';
