@@ -94,22 +94,21 @@ class GOVDataRequest
 				$results = curl_exec($ch);
 				$code = curl_getinfo($ch, CURLINFO_HTTP_CODE);
 				curl_close($ch);
-				//print_r($url.$query);exit;
 
 				$results = json_decode($results);
 				if ($code == '200') {
 					$results = $results->d;
-					//uncomment (var_dump($results); exit;) to parse raw data for verification...
-					//var_dump($results); exit;
 					if ($results instanceof stdClass) {
 						if(isset($results->results))
 							$results = $results->results;
 					}
 				} else {
 					if(isset($results->error->message->value))
+					{
 						$results = $results->error->message->value;
-					else
+					}else{
 						$results = "Connection to host failed.";
+					}
 				}
 				return $results;
 		} elseif ($this->context->isValid() == "http://business.usa.gov") {
@@ -128,8 +127,6 @@ class GOVDataRequest
 			foreach($url->children() as $node) if ($i++ < 10) {
 				$results[] = $node;
 			}
-			//uncomment (var_dump($results); exit;) to parse raw data for verification...
-			//var_dump($results); exit;
 			return $results;
 		} elseif($this->context->getApiHost() == 'V2'){
 
@@ -143,7 +140,6 @@ class GOVDataRequest
 			}else{
 				return 'ERROR: Improper input parameters.';
 			}
-			//print_r($get_url);exit;
 
 			$headers = array("X-API-KEY: ".$this->context->apiKey."");
 			$ch = curl_init();
@@ -153,12 +149,11 @@ class GOVDataRequest
 				CURLOPT_FOLLOWLOCATION => FALSE,
 				CURLOPT_RETURNTRANSFER => TRUE,
 				CURLOPT_SSL_VERIFYHOST => FALSE,
-				CURLOPT_SSL_VERIFYPEER => FALSE // set to TRUE on QA and Prod
+				// set to TRUE on QA and Prod
+				CURLOPT_SSL_VERIFYPEER => FALSE
 			));
 
 			// Execute - returns response
-			//print_r($ch);
-
 			$response = curl_exec($ch);
 			curl_close($ch);
 			return array($response);
