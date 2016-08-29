@@ -22,7 +22,7 @@ class GOVDataContext
 
 	function isValid() {
 	  switch($this->apiHost){
-		case "http://api.dol.gov"):
+		case "http://api.dol.gov":
 			$valid = $this->apiHost;
 			return $valid;
 		case "http://business.usa.gov":
