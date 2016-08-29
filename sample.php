@@ -35,7 +35,7 @@ $arguments = NULL;
 	//Quarry build array example
 	$method = 'get';
 	$arguments =  Array('format' => 'json',
-			    'limit' => 10,
+			    'limit' => 1,
 			    'table_alias' => '');
 
 }else{
