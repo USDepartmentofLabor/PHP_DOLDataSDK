@@ -1,4 +1,4 @@
-PHP_DOLDataSDK for Quarry API
+P# PHP_DOLDataSDK for Quarry API
 ==============
 
 PHP SDK to ease access to DOL's and other federal agencies' APIs. For a list of APIs that this SDK has been tested against, please see the wiki. For documentation, please see the readme. For sample code, please visit http://developer.dol.gov.
@@ -8,35 +8,19 @@ PHP SDK to ease access to DOL's and other federal agencies' APIs. For a list of 
 APIv1 and Quarry API are dually supported in this release.
 
 
-## Required files
+## Requirements
 
-GOVDataSDK.php is the SDK that contains the following classes:
- 1. GOVDataContext.php: The contextual class that assembles the configuration information based on the api (V1 or Quarry) 
- 2. GOVDataRequest.php: Formats the curl request based on the context information 
+GOVDataContext.php
+GOVDataRequest.php
+GOVDataSDK.php
+test_gov.php
 
-sample.php is the test script for GOVDataSDK
+## INSTALL 
 
-## Usage
-
-# For APIv1
-1. Go to https://github.com/USDepartmentofLabor/PHP_DOLDataSDK/tree/ps-2 and either GIT clone or download the zip repository
-2. Open the folder PHP_DOLDataSK-ps-2 and edit “sample.php”
-3. To edit APIv1
-4. Comment out the APIv2-Quarry $context variable
-5. Uncomment //APIv1 $context variable and replace ADD_YOUR_API_KEY_HERE with your active APIv1 key
-6. Enter your array arguments. (An example has been provided)
-7. Save and run sample.php for the output
-
-# For Quarry API
-1. Go to https://github.com/USDepartmentofLabor/PHP_DOLDataSDK/tree/ps-2 and either GIT clone or download the zip repository
-2. Open the folder PHP_DOLDataSK-ps-2 and edit “sample.php”
-3. To edit Quarry API
-4. Go to sample.php
-5. Comment out //APIv1 $context variable
-6. Uncomment //APIv2-Quarry $context variable
-7. Enter your Quarry arguments
-8. Save and run sample.php
-
+1. Open test_gov.php
+2. Replace 'ADD_YOUR_API_KEY_HERE' with your DOL APIv1 or Quarry API key
+3. Replace 'TABLE_ALIAS' with a valid DOL Quarry API table alias name
+4. Go to http://usdepartmentoflabor.github.io/PHP_DOLDataSDK/ to view Quarry filtering information
 
 ## Known Bugs
 N/A
