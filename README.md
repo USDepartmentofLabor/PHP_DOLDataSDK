@@ -7,6 +7,9 @@ PHP SDK to ease access to DOL's and other federal agencies' APIs. For a list of 
 ## NEWS 
 APIv1 and Quarry API are dually supported in this release.
 
+## Instructions
+To contribute samples, it is recommended to have some background on Git and GitHub.
+
 
 ## Required files
 
@@ -19,22 +22,22 @@ sample.php is the test script for GOVDataSDK
 ## Usage
 
 # For APIv1
-1. Go to https://github.com/USDepartmentofLabor/PHP_DOLDataSDK/tree/ps-2 and either GIT clone or download the zip repository
-2. Open the folder PHP_DOLDataSK-ps-2 and edit ìsample.phpî
+1. Go to https://github.com/USDepartmentofLabor/PHP_DOLDataSDK.git and either GIT clone or download the zip repository
+2. Open the folder PHP_DOLDataSK-master and edit ‚Äúsample.php‚Äù
 3. To edit APIv1
 4. Comment out the APIv2-Quarry $context variable
 5. Uncomment //APIv1 $context variable and replace ADD_YOUR_API_KEY_HERE with your active APIv1 key
-6. Enter your array arguments. (An example has been provided)
+6. Enter your array arguments at line 27. (An example has been provided)
 7. Save and run sample.php for the output
 
 # For Quarry API
-1. Go to https://github.com/USDepartmentofLabor/PHP_DOLDataSDK/tree/ps-2 and either GIT clone or download the zip repository
-2. Open the folder PHP_DOLDataSK-ps-2 and edit ìsample.phpî
-3. To edit Quarry API
+1. Go to https://github.com/USDepartmentofLabor/PHP_DOLDataSDK.git and either GIT clone or download the zip repository
+2. Open the folder PHP_DOLDataSK-master and edit ‚Äúsample.php‚Äù
+3. To edit Quarry APIV2
 4. Go to sample.php
 5. Comment out //APIv1 $context variable
 6. Uncomment //APIv2-Quarry $context variable
-7. Enter your Quarry arguments
+7. Enter your array arguments at line 37 (An example has been provided)
 8. Save and run sample.php
 
 
